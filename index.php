@@ -3,7 +3,7 @@
   <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
-  <title>Welcome to P-Club</title>
+  <title>Welcome to P-Club iitk</title>
 
   <!-- If you are using CSS version, only link these 2 files, you may add app.css to use for your overrides if you like. -->
   <link rel="stylesheet" href="css/normalize.css" />
