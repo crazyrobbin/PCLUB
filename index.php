@@ -20,6 +20,83 @@ session_start();
   <script src="js/vendor/custom.modernizr.js"></script>
   <script src="js/vendor/jquery.js"></script>
 
+  <script>
+  $(document).ready(function() {
+   $('.club').mouseenter(function() {
+       $(this).animate({
+           height: '+=10px'
+       });
+   });
+   $('.club').mouseleave(function() {
+       $(this).animate({
+           height: '-=10px'
+       }); 
+   });
+   $('.club').click(function() {
+       $(this).toggle(1000);
+   }); 
+});
+  </script>
+
+
+  <style> 
+.club {
+    height:100px;
+    width:100px;
+    display: inline-block;
+    font-size:70px;
+    text-align:center
+}
+
+#green {
+    background-color:#008800;
+}
+
+#red {
+    background-color:#FF0000;
+}
+
+#blue {
+    background-color:#0000FF;
+}
+
+#yellow {
+    background-color:#E2BE22;
+}
+
+#green2 {
+    background-color:#008800;
+}
+
+div.inline{
+  display:inline-block;
+  width:100px;
+  height:60px;
+}
+
+#ok
+{
+width:100px;
+height:60px;
+background:green;
+position:relative;
+animation:mymove 5s infinite;
+-webkit-animation:mymove 5s infinite; /*Safari and Chrome*/
+}
+
+@keyframes mymove
+{
+from {left:0px;}
+to {left:230px;}
+}
+
+@-webkit-keyframes mymove /*Safari and Chrome*/
+{
+from {left:0px;}
+to {left:230px;}
+}
+</style>
+
 
 </head>
 <body>
@@ -28,9 +105,16 @@ session_start();
   <a href="#" class="close">&times;</a>
 </div>
 
-	<div idd="error"></div>
-<div class="row" id="b1">
-  <div class="large-6 columns">Pclub</div>
+	<div class="row">
+  <div class="small-6 large-8 columns">
+    <!--<div id="ok" class="inline"></div>
+    <div class="inline" style="font-size:50px; position:absolute; text-align:left;color:white;">Pclub</div>-->
+        <div class="club" id="green"><p>P<p></div>
+        <div class="club" id="blue"><p>C<p></div>
+        <div class="club" id="yellow"><p>L<p></div>
+        <div class="club" id="red"><p>U<p></div>
+        <div class="club" id="green2"><p>B<p></div>
+  </div>
 <?php
 if(!isset($_SESSION['username']))
 {
@@ -53,8 +137,8 @@ if(!isset($_SESSION['username']))
   									";
   									unset($_SESSION['error1']); 
   								 }
-  echo '<div class="large-5 large-offset-1 columns"><a href="#" data-reveal-id="myModal">Login</a></div>
-  <div class="large-5 large-offset-1 columns"><a href="#" data-reveal-id="myModal1">Register</a></div>';
+  echo '<div class="small-6 large-2 columns"><a href="#" data-reveal-id="myModal">Login</a></div>
+  <div class="small-12 large-2 columns"><a href="#" data-reveal-id="myModal1">Register</a></div>';
 }
   else 
   	{	
