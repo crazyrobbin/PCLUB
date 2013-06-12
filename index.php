@@ -1,9 +1,14 @@
+<?php
+session_start();
+?>
+
+
 <html>
 <head>
   <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
-  <title>Welcome to P-Club iitk</title>
+  <title>Welcome to P-Club</title>
 
   <!-- If you are using CSS version, only link these 2 files, you may add app.css to use for your overrides if you like. -->
   <link rel="stylesheet" href="css/normalize.css" />
@@ -15,16 +20,55 @@
   <script src="js/vendor/custom.modernizr.js"></script>
   <script src="js/vendor/jquery.js"></script>
 
+
 </head>
+<body>
+	<div data-alert class="alert-box alert" id='error' style="display:none">
+  <!-- Your content goes here -->
+  <a href="#" class="close">&times;</a>
+</div>
+
+	<div idd="error"></div>
 <div class="row" id="b1">
   <div class="large-6 columns">Pclub</div>
-
-  <div class="large-5 large-offset-1 columns"><a href="#" data-reveal-id="myModal">Login</a></div>
+<?php
+if(!isset($_SESSION['username']))
+{
+  if(isset($_SESSION['error']))  { echo "
+  									<script>
+  									var x=document.getElementById('error');
+  									x.innerHTML='The Userid or Password you entered is not available in our database !!! Please make sure to register yourself before you login.<a class=close>&times;</a>' ;
+  									x.style.textAlign='center';
+  									x.style.display='block';
+  									</script>
+  									"; unset($_SESSION['error']);
+  								 }
+  if(isset($_SESSION['error1'])) { echo "
+  									<script>
+  									var x=document.getElementById('error');
+  									x.innerHTML='Username you want to use is already in use !!! Please try again with different username.  <a class=close>&times;</a>' ;
+  									x.style.textAlign='center';
+  									x.style.display='block';
+  									</script>
+  									";
+  									unset($_SESSION['error1']); 
+  								 }
+  echo '<div class="large-5 large-offset-1 columns"><a href="#" data-reveal-id="myModal">Login</a></div>
+  <div class="large-5 large-offset-1 columns"><a href="#" data-reveal-id="myModal1">Register</a></div>';
+}
+  else 
+  	{	
+  		echo "<a href=PHP/user.php target='_blank'>";
+  		echo $_SESSION['name'];
+  		echo '</a><a href="PHP/logout.php">Logout</a>';
+  	}
+  ?>
 
 </div>
 <div id="sticky-anchor"></div>
 <div id="sticky">
-<ul class="button-group radius even-6">
+<ul class="button-group radius even-7">
+  <li><a href="#" class="button success ">Home</a></li>
   <li><a href="#" class="button success ">Tutorial</a></li>
   <li><a href="#" class="button success  ">Projects</a></li>
   <li><a href="#" class="button success ">Achivements</a></li>
@@ -34,8 +78,11 @@
 </ul>
 
 </div>
-<div style="width:70%;">
-<ul data-orbit>
+
+<div class="row" style="width:50%">
+  
+  <div class="small-12 columns">
+      <ul data-orbit>
   <li>
 <img src="img/i1.jpg">
     <div class="orbit-caption">ACM ICPC</div>
@@ -53,19 +100,24 @@
     <div class="orbit-caption">Imagine Cup</div>
   </li>
 </ul>
+
 </div>
+
+
+
 
 <div class="row">
   <div class="small-6 large-2 columns"><b>Events</b><br><hr>
     <div class="panel callout radius">
-
 Up comming events
 </div>
   </div>
-  <div class="small-6 large-7 columns">
+  <div class="small-6 large-8 columns">
     P-Club is one of the oldest club of IIT Kanpur. It is run by students of <b>IIT Kanpur</b>. It is responsible for various activities of Programming held in campus and also develope programming culture in the campus.
   </div>
-  <div class="small-12 large-3 columns">Rank of Online judge
+  <div class="small-12 large-2 columns"><div class="panel callout radius">
+Rank of Online Judge
+</div>
   </div>
 </div>
 
@@ -81,24 +133,59 @@ Up comming events
 <div id="t">This is test</div>
 
 <div id="myModal" class="reveal-modal">
-<form>
+<form name="loginForm" action="PHP/login.php" method="POST" onsubmit="return validateLoginForm()">
   <fieldset>
     <legend>Login to continue</legend>
 
     <div class="row">
       <div class="large-6 columns">
         <label>Login Id</label>
-        <input type="text" placeholder="Enter login Id">
+        <input id="loginform_username" type="text" placeholder="Enter login Id" name="username">
       </div>
     </div>
 
     <div class="row">
       <div class="large-6 columns">
         <label>Password</label>
-        <input type="password" placeholder="Enter your password">
+        <input id= "loginform_pwd" type="password" placeholder="Enter your password" name="pwd">
       </div>
     </div>
-    <button>Login</button>
+
+
+    <button id="loginn_button">Login</button>
+    <font color="red"> <div id="login_error_info" class="error"></div></font>
+  </fieldset>
+</form>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div id="myModal1" class="reveal-modal">
+<form name="signupForm" action="PHP/register.php"  method= "POST" onsubmit="return validateSignUpForm()">
+  <fieldset>
+    <legend>Register Here</legend>
+
+    <div class="row">
+      <div class="large-6 columns">
+        <label>Login Id</label>
+        <input id="signupform_username" type="text" placeholder="Enter login Id" name="username">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-6 columns">
+        <label>Name</label>
+        <input id="signupform_name" type="text" placeholder="Enter Your Name" name="name">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-6 columns">
+        <label>Password(minimum 6 characters)</label>
+        <input id="signupform_pwd" type="password" placeholder="Enter your password" name="pwd">
+      </div>
+    </div>
+    <button>Register</button>
+    <font color="red"> <div id="signup_error_info" class="error"></div></font>
   </fieldset>
 </form>
   <a class="close-reveal-modal">&#215;</a>
@@ -111,13 +198,6 @@ Up comming events
 
 
  <script type="text/javascript">
-jQuery(document).ready(function(){
-   $("#t").click(function(event){
-     $("#t").text("robbin");
-   });
-});
-
-
 
 function sticky_relocate() {
   var window_top = $(window).scrollTop();
@@ -133,6 +213,59 @@ $(function() {
   $(window).scroll(sticky_relocate);
   sticky_relocate();
 });
+
+function validateLoginForm()
+{
+	var x=document.forms['loginForm']['username'].value;
+	var flag=true;
+	if(x==null||x=="") 
+	{
+		$("#loginform_username").addClass("error");
+		flag=false;
+	}
+	else $("#loginform_username").removeClass("error");
+	x=document.forms['loginForm']['pwd'].value;
+	if(x.length<6)
+	{
+		$("#loginform_pwd").addClass("error");
+		flag=false;
+	}
+	else $("#loginform_pwd").removeClass("error");
+	if(!flag) document.getElementById("login_error_info").innerHTML="* invalid form submission";
+	//$("#login_error_info").addClass("error");
+	return flag;
+}
+function validateSignUpForm()
+{
+	var x=document.forms['signupForm']['username'].value;
+	var flag=true;
+	if(x==null||x=="") 
+	{
+		$("#signupform_username").addClass("error");
+		flag=false;
+	}
+	else $("#signupform_username").removeClass("error");
+
+	x=document.forms['signupForm']['name'].value;
+	if(x==null||x=="") 
+	{
+		$("#signupform_name").addClass("error");
+		flag=false;
+	}
+	else $("#signupform_name").removeClass("error");
+
+	x=document.forms['signupForm']['pwd'].value;
+	if(x.length<6)
+	{
+		$("#signupform_pwd").addClass("error");
+		flag=false;
+	}
+	else $("#signupform_pwd").removeClass("error");
+	if(!flag) document.getElementById("signup_error_info").innerHTML="* invalid form submission";
+	//$("#login_error_info").addClass("error");
+	return flag;
+}
+
   </script>
    <script>
   document.write('<script src=' +
@@ -157,4 +290,31 @@ $(function() {
   <script>
     $(document).foundation();
   </script>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+ </body>
 </html>
+
+
