@@ -151,7 +151,7 @@ if(!isset($_SESSION['username']))
 </div>
 <div id="sticky-anchor"></div>
 <div id="sticky">
-<ul class="button-group radius even-7">
+<ul class="button-group radius even-8">
   <li><a href="#" class="button success ">Home</a></li>
   <li><a href="#" class="button success ">Tutorial</a></li>
   <li><a href="#" class="button success  ">Projects</a></li>
@@ -159,6 +159,7 @@ if(!isset($_SESSION['username']))
   <li><a href="#" class="button success ">Contact</a></li>
   <li><a href="#" class="button success ">Forum</a></li>
   <li><a href="#" class="button success ">Online Judge</a></li>
+  <li><a href="admin.php" class="button success " target="_blank">Admin Login</a></li>
 </ul>
 
 </div>
