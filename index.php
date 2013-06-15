@@ -163,8 +163,8 @@ if(!isset($_SESSION['username']))
 </ul>
 
 </div>
+<br><br><br><br>
 
-<div class="row" style="width:50%">
   
   <div class="small-12 columns">
       <ul data-orbit>
